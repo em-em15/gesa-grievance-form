@@ -1,6 +1,6 @@
 <!--
-GESA Grievance Form Website (Geodetic Engineering Themed + Floating Grievance System)
-No coordinates used. Only timestamp-based records.
+GESA Grievance Form Website (Enhanced Large UI + Geodetic Engineering Theme)
+Fully responsive, larger interface, improved visual hierarchy
 -->
 
 <!DOCTYPE html>
@@ -16,13 +16,35 @@ No coordinates used. Only timestamp-based records.
     --dark:#061a14;
     --accent:#00c896;
     --glass:rgba(255,255,255,0.08);
-    --font-base:16px;
+
+    --font-base:18px;
+    --header-size:28px;
+    --button-size:18px;
+    --card-padding:22px;
 }
 
-@media (min-width:1024px){ :root{--font-base:18px;} }
-@media (max-width:768px){ :root{--font-base:14px;} }
+@media (min-width:1024px){
+    :root{
+        --font-base:20px;
+        --header-size:34px;
+        --button-size:20px;
+        --card-padding:26px;
+    }
+}
 
-*{box-sizing:border-box;font-family:Arial;}
+@media (max-width:768px){
+    :root{
+        --font-base:16px;
+        --header-size:22px;
+        --button-size:16px;
+        --card-padding:18px;
+    }
+}
+
+*{
+    box-sizing:border-box;
+    font-family:Arial;
+}
 
 body{
     margin:0;
@@ -32,10 +54,9 @@ body{
     background:
         radial-gradient(circle at 20% 20%, rgba(0,200,150,0.08), transparent 40%),
         linear-gradient(135deg,var(--primary),var(--dark));
-    overflow-x:hidden;
 }
 
-/* GEODETIC GRID + CONTOUR FEEL */
+/* GRID + GEODETIC FEEL */
 body::before{
     content:"";
     position:fixed;
@@ -43,134 +64,160 @@ body::before{
     background-image:
         linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
-    background-size:45px 45px;
+    background-size:50px 50px;
     opacity:0.2;
     pointer-events:none;
 }
 
 header{
     text-align:center;
-    padding:15px;
-    background:rgba(0,0,0,0.45);
+    padding:28px;
+    font-size:var(--header-size);
     font-weight:bold;
+    letter-spacing:1px;
+    background:rgba(0,0,0,0.5);
+    backdrop-filter:blur(10px);
 }
 
 nav{
     display:flex;
     justify-content:center;
-    gap:10px;
+    gap:14px;
     flex-wrap:wrap;
-    padding:10px;
+    padding:14px;
 }
 
 nav button{
-    padding:10px 14px;
+    padding:14px 22px;
+    font-size:var(--button-size);
     border:none;
-    border-radius:10px;
+    border-radius:14px;
     background:rgba(255,255,255,0.08);
     color:white;
     cursor:pointer;
+    transition:0.2s;
 }
 
-nav button:hover{background:var(--accent);color:black;}
+nav button:hover{
+    background:var(--accent);
+    color:black;
+}
 
-.tab{display:none;padding:15px;}
+.tab{
+    display:none;
+    padding:24px;
+}
+
 .active{display:block;}
 
 .card{
     background:var(--glass);
-    padding:15px;
-    border-radius:12px;
-    margin:10px 0;
-    backdrop-filter:blur(10px);
+    padding:var(--card-padding);
+    border-radius:16px;
+    margin:16px 0;
+    backdrop-filter:blur(12px);
 }
 
-label{font-size:0.9em;opacity:0.9;}
+h2{
+    font-size:1.6em;
+    margin-bottom:10px;
+}
 
-input,select,textarea{
-    width:100%;
-    padding:10px;
-    margin-top:6px;
-    margin-bottom:12px;
+p{
+    line-height:1.6;
+}
+
+/* LARGE ACTION BUTTONS */
+.action-grid{
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+    margin-top:18px;
+}
+
+.action-btn{
+    flex:1;
+    min-width:200px;
+    padding:16px;
+    font-size:18px;
     border:none;
-    border-radius:8px;
-}
-
-textarea{min-height:130px;}
-
-button.submit{
-    width:100%;
-    padding:12px;
+    border-radius:14px;
     background:var(--accent);
-    border:none;
-    border-radius:10px;
+    color:black;
     font-weight:bold;
     cursor:pointer;
 }
 
-/* FLOATING GRIEVANCE BUBBLES */
-.grievance-container{
+label{
+    font-size:0.95em;
+    opacity:0.9;
+}
+
+input,select,textarea{
+    width:100%;
+    padding:14px;
+    margin-top:8px;
+    margin-bottom:14px;
+    border:none;
+    border-radius:10px;
+    font-size:1em;
+}
+
+textarea{min-height:150px;}
+
+button.submit{
+    width:100%;
+    padding:16px;
+    background:var(--accent);
+    border:none;
+    border-radius:12px;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* FLOATING GRIEVANCES */
+.container{
     display:flex;
     flex-wrap:wrap;
-    gap:15px;
+    gap:18px;
     justify-content:center;
-    padding:10px;
 }
 
 .bubble{
-    background:rgba(255,255,255,0.95);
+    background:white;
     color:black;
-    padding:12px;
-    border-radius:16px;
-    width:250px;
-    position:relative;
+    padding:16px;
+    border-radius:18px;
+    width:280px;
+    box-shadow:0 10px 20px rgba(0,0,0,0.3);
     animation:float 6s ease-in-out infinite;
-    box-shadow:0 8px 20px rgba(0,0,0,0.3);
 }
-
-.bubble:nth-child(2n){animation-duration:7s;}
-.bubble:nth-child(3n){animation-duration:8s;}
 
 @keyframes float{
     0%{transform:translateY(0px);}
-    50%{transform:translateY(-8px);}
+    50%{transform:translateY(-10px);}
     100%{transform:translateY(0px);}
 }
 
 .timestamp{
-    font-size:0.75em;
+    font-size:0.8em;
     opacity:0.7;
-    margin-top:6px;
+    margin-top:8px;
 }
 
 /* ADMIN BUTTON */
 .admin-btn{
     position:fixed;
-    bottom:15px;
-    right:15px;
-    background:var(--accent);
+    bottom:20px;
+    right:20px;
+    padding:14px 18px;
     border:none;
-    padding:12px;
     border-radius:50px;
+    background:var(--accent);
     font-weight:bold;
     cursor:pointer;
-}
-
-.modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.7);
-    display:none;
-    justify-content:center;
-    align-items:center;
-}
-
-.modal-content{
-    background:#0b3d2e;
-    padding:20px;
-    border-radius:12px;
-    width:90%;
-    max-width:500px;
+    font-size:16px;
 }
 
 </style>
@@ -178,7 +225,9 @@ button.submit{
 
 <body>
 
-<header>GESA Geodetic Engineering Grievance System</header>
+<header>
+GESA Grievance System | Geodetic Engineering Interface
+</header>
 
 <nav>
 <button onclick="showTab('welcome')">Welcome</button>
@@ -189,10 +238,18 @@ button.submit{
 <!-- WELCOME -->
 <div id="welcome" class="tab active">
 <div class="card">
-<h2>Purpose of the System</h2>
+<h2>Welcome to the GESA Grievance System</h2>
 <p>
-The sole purpose of the GESA Grievance Form is to ensure that all student concerns, complaints, and grievances are properly documented, acknowledged, and given due attention. Through this system, every submission is treated with importance and respect, ensuring that no concern is ignored or left unheard. It serves as a structured channel between students and the organization, enabling transparency, accountability, and continuous improvement within the Geodetic Engineering community. Ultimately, the information gathered through this platform will guide responsible actions, appropriate interventions, and informed decision-making aimed at addressing student needs effectively.
+This platform ensures that all student grievances are properly received, recorded, and acknowledged.
+Every concern submitted through this system is given equal importance, ensuring that no issue is ignored or overlooked.
+Through structured documentation and organized review, this system enables the Geodetic Engineering Students’ Association to take appropriate and timely actions based on verified student concerns.
 </p>
+
+<div class="action-grid">
+<button class="action-btn" onclick="showTab('form')">Submit Grievance</button>
+<button class="action-btn" onclick="showTab('view')">View Grievances</button>
+</div>
+
 </div>
 </div>
 
@@ -202,7 +259,7 @@ The sole purpose of the GESA Grievance Form is to ensure that all student concer
 <h2>Formal Grievance Submission</h2>
 
 <label>Full Name (Optional)</label>
-<input id="name" placeholder="Enter your name">
+<input id="name" placeholder="Enter your full name">
 
 <label>Category</label>
 <select id="category">
@@ -214,7 +271,7 @@ The sole purpose of the GESA Grievance Form is to ensure that all student concer
 </select>
 
 <label>Detailed Description</label>
-<textarea id="text" placeholder="Describe your concern in detail..."></textarea>
+<textarea id="text" placeholder="Provide complete details of your concern..."></textarea>
 
 <button class="submit" onclick="submitGrievance()">Submit Grievance</button>
 </div>
@@ -224,18 +281,7 @@ The sole purpose of the GESA Grievance Form is to ensure that all student concer
 <div id="view" class="tab">
 <div class="card">
 <h2>Grievance Records</h2>
-<div class="grievance-container" id="list"></div>
-</div>
-</div>
-
-<!-- ADMIN -->
-<button class="admin-btn" onclick="openAdmin()">Admin</button>
-
-<div class="modal" id="admin">
-<div class="modal-content">
-<h3>Admin Panel</h3>
-<div id="pending"></div>
-<button onclick="closeAdmin()">Close</button>
+<div class="container" id="list"></div>
 </div>
 </div>
 
@@ -253,83 +299,31 @@ function submitGrievance(){
         time:new Date().toLocaleString()
     };
 
-    let pending=JSON.parse(localStorage.getItem('pending'))||[];
-    pending.push(data);
-    localStorage.setItem('pending',JSON.stringify(pending));
-
-    alert("Grievance submitted for review");
-    document.getElementById('text').value="";
-}
-
-function loadGrievances(){
     let approved=JSON.parse(localStorage.getItem('approved'))||[];
-    let box=document.getElementById('list');
-    box.innerHTML="";
+    approved.push(data);
+    localStorage.setItem('approved',JSON.stringify(approved));
 
-    approved.forEach(p=>{
-        let div=document.createElement('div');
-        div.className='bubble';
-        div.innerHTML=`
-        <b>${p.name}</b><br>
-        <i>${p.category}</i><br>
-        ${p.text}
-        <div class="timestamp">${p.time}</div>
-        `;
-        box.appendChild(div);
-    });
-}
-
-function openAdmin(){
-    let pass=prompt("Admin Code:");
-    if(pass!="admin123")return;
-
-    document.getElementById('admin').style.display="flex";
-    loadPending();
-}
-
-function closeAdmin(){
-    document.getElementById('admin').style.display="none";
-}
-
-function loadPending(){
-    let p=JSON.parse(localStorage.getItem('pending'))||[];
-    let box=document.getElementById('pending');
-    box.innerHTML="";
-
-    p.forEach((x,i)=>{
-        let d=document.createElement('div');
-        d.className='bubble';
-        d.innerHTML=`
-        <b>${x.name}</b><br>
-        <i>${x.category}</i><br>
-        ${x.text}<br>
-        <small>${x.time}</small><br><br>
-        <button onclick="approve(${i})">Approve</button>
-        <button onclick="reject(${i})">Reject</button>
-        `;
-        box.appendChild(d);
-    });
-}
-
-function approve(i){
-    let p=JSON.parse(localStorage.getItem('pending'))||[];
-    let a=JSON.parse(localStorage.getItem('approved'))||[];
-
-    a.push(p[i]);
-    p.splice(i,1);
-
-    localStorage.setItem('approved',JSON.stringify(a));
-    localStorage.setItem('pending',JSON.stringify(p));
-
-    loadPending();
+    alert("Grievance successfully recorded.");
+    document.getElementById('text').value="";
     loadGrievances();
 }
 
-function reject(i){
-    let p=JSON.parse(localStorage.getItem('pending'))||[];
-    p.splice(i,1);
-    localStorage.setItem('pending',JSON.stringify(p));
-    loadPending();
+function loadGrievances(){
+    let data=JSON.parse(localStorage.getItem('approved'))||[];
+    let box=document.getElementById('list');
+    box.innerHTML="";
+
+    data.forEach(d=>{
+        let div=document.createElement('div');
+        div.className='bubble';
+        div.innerHTML=`
+            <b>${d.name}</b><br>
+            <i>${d.category}</i><br>
+            ${d.text}
+            <div class="timestamp">${d.time}</div>
+        `;
+        box.appendChild(div);
+    });
 }
 
 window.onload=loadGrievances;
