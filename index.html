@@ -1,6 +1,6 @@
 <!--
-GESA Grievance Form Website (Enhanced UI + Admin System + Geodetic Theme)
-No coordinates. Timestamp-based grievance system with approval workflow.
+GESA Grievance Form Website (Enhanced Large UI + Persistent Navigation + Admin System)
+Geodetic Engineering Themed | No coordinates | Timestamp-based system
 -->
 
 <!DOCTYPE html>
@@ -17,25 +17,34 @@ No coordinates. Timestamp-based grievance system with approval workflow.
     --accent:#00c896;
     --glass:rgba(255,255,255,0.08);
 
-    --font-base:18px;
-    --header-size:28px;
+    --font-base:20px;
+    --header-size:38px;
+    --button-size:20px;
+    --card-padding:26px;
 }
 
 @media (min-width:1024px){
     :root{
-        --font-base:20px;
-        --header-size:34px;
+        --font-base:22px;
+        --header-size:44px;
+        --button-size:22px;
+        --card-padding:30px;
     }
 }
 
 @media (max-width:768px){
     :root{
         --font-base:16px;
-        --header-size:22px;
+        --header-size:26px;
+        --button-size:16px;
+        --card-padding:18px;
     }
 }
 
-*{box-sizing:border-box;font-family:Arial;}
+*{
+    box-sizing:border-box;
+    font-family:Arial;
+}
 
 body{
     margin:0;
@@ -47,6 +56,7 @@ body{
         linear-gradient(135deg,var(--primary),var(--dark));
 }
 
+/* GRID GEODETIC STYLE */
 body::before{
     content:"";
     position:fixed;
@@ -54,88 +64,126 @@ body::before{
     background-image:
         linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
-    background-size:50px 50px;
-    opacity:0.2;
+    background-size:55px 55px;
+    opacity:0.18;
     pointer-events:none;
 }
 
 header{
     text-align:center;
-    padding:30px;
+    padding:34px;
     font-size:var(--header-size);
     font-weight:bold;
-    background:rgba(0,0,0,0.5);
+    background:rgba(0,0,0,0.55);
     backdrop-filter:blur(10px);
 }
 
-nav{
+/* GLOBAL NAV */
+.navbar{
     display:flex;
     justify-content:center;
-    gap:12px;
+    gap:14px;
     flex-wrap:wrap;
-    padding:12px;
+    padding:14px;
 }
 
-nav button{
-    padding:14px 20px;
+.navbar button{
+    padding:14px 22px;
+    font-size:var(--button-size);
     border:none;
-    border-radius:12px;
+    border-radius:14px;
     background:rgba(255,255,255,0.08);
     color:white;
     cursor:pointer;
-    font-size:16px;
+    transition:0.2s;
 }
 
-nav button:hover{background:var(--accent);color:black;}
+.navbar button:hover{
+    background:var(--accent);
+    color:black;
+}
 
-.tab{display:none;padding:20px;}
+/* INSIDE NAV (REPEATED IN EACH TAB) */
+.subnav{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin:10px 0 20px;
+}
+
+.subnav button{
+    padding:10px 16px;
+    border:none;
+    border-radius:12px;
+    background:rgba(255,255,255,0.07);
+    color:white;
+    cursor:pointer;
+}
+
+.subnav button:hover{
+    background:var(--accent);
+    color:black;
+}
+
+.tab{
+    display:none;
+    padding:26px;
+}
+
 .active{display:block;}
 
 .card{
     background:var(--glass);
-    padding:20px;
-    border-radius:14px;
-    margin:14px 0;
+    padding:var(--card-padding);
+    border-radius:18px;
+    margin:16px 0;
     backdrop-filter:blur(12px);
 }
 
-h2{margin-bottom:10px;}
+h2{
+    font-size:1.8em;
+    margin-bottom:12px;
+}
+
+p{line-height:1.7;}
 
 input,select,textarea{
     width:100%;
-    padding:12px;
+    padding:14px;
     margin:10px 0;
     border:none;
-    border-radius:10px;
+    border-radius:12px;
+    font-size:1em;
 }
 
-textarea{min-height:140px;}
+textarea{min-height:160px;}
 
 button.submit{
     width:100%;
-    padding:14px;
+    padding:16px;
     background:var(--accent);
     border:none;
-    border-radius:12px;
+    border-radius:14px;
+    font-size:18px;
     font-weight:bold;
     cursor:pointer;
-    font-size:16px;
 }
 
-/* FLOATING GRIEVANCES */
+/* GRIEVANCES */
 .container{
     display:flex;
     flex-wrap:wrap;
-    gap:16px;
+    gap:18px;
 }
 
 .bubble{
     background:white;
     color:black;
-    padding:14px;
-    border-radius:16px;
-    width:260px;
-    box-shadow:0 10px 20px rgba(0,0,0,0.3);
+    padding:16px;
+    border-radius:18px;
+    width:300px;
+    box-shadow:0 10px 22px rgba(0,0,0,0.3);
 }
 
 .timestamp{
@@ -144,12 +192,12 @@ button.submit{
     margin-top:6px;
 }
 
-/* ADMIN BUTTON */
+/* ADMIN */
 .admin-btn{
     position:fixed;
-    bottom:20px;
-    right:20px;
-    padding:14px 18px;
+    bottom:22px;
+    right:22px;
+    padding:16px 20px;
     border:none;
     border-radius:50px;
     background:var(--accent);
@@ -157,7 +205,6 @@ button.submit{
     cursor:pointer;
 }
 
-/* MODAL */
 .modal{
     position:fixed;
     inset:0;
@@ -169,24 +216,25 @@ button.submit{
 
 .modal-content{
     background:#0b3d2e;
-    padding:20px;
-    border-radius:14px;
-    width:90%;
-    max-width:520px;
+    padding:22px;
+    border-radius:16px;
+    width:92%;
+    max-width:540px;
     max-height:80vh;
     overflow:auto;
 }
 
 .small-btn{
-    padding:6px 10px;
+    padding:8px 12px;
     margin:4px;
     border:none;
-    border-radius:8px;
+    border-radius:10px;
     cursor:pointer;
 }
 
 .approve{background:#00c896;color:black;}
 .reject{background:#ff4d4d;color:white;}
+
 </style>
 </head>
 
@@ -196,14 +244,21 @@ button.submit{
 GESA Grievance System | Geodetic Engineering Platform
 </header>
 
-<nav>
-<button onclick="showTab('welcome')">Welcome</button>
+<!-- MAIN NAV (AVAILABLE ALWAYS) -->
+<div class="navbar">
+<button onclick="showTab('welcome')">Home</button>
 <button onclick="showTab('form')">Submit</button>
 <button onclick="showTab('view')">Grievances</button>
-</nav>
+</div>
 
 <!-- WELCOME -->
 <div id="welcome" class="tab active">
+<div class="subnav">
+<button onclick="showTab('welcome')">Home</button>
+<button onclick="showTab('form')">Submit</button>
+<button onclick="showTab('view')">Grievances</button>
+</div>
+
 <div class="card">
 <h2>System Purpose</h2>
 <p>
@@ -214,11 +269,15 @@ The sole purpose of the GESA Grievance Form is to ensure that all student concer
 
 <!-- FORM -->
 <div id="form" class="tab">
+<div class="subnav">
+<button onclick="showTab('welcome')">Home</button>
+<button onclick="showTab('form')">Submit</button>
+<button onclick="showTab('view')">Grievances</button>
+</div>
+
 <div class="card">
 <h2>Formal Grievance Submission</h2>
-
 <input id="name" placeholder="Full Name (Optional)">
-
 <select id="category">
 <option>Academic Concern</option>
 <option>Facilities Issue</option>
@@ -226,15 +285,19 @@ The sole purpose of the GESA Grievance Form is to ensure that all student concer
 <option>Administrative Issue</option>
 <option>Other</option>
 </select>
-
 <textarea id="text" placeholder="Describe your grievance in detail..."></textarea>
-
 <button class="submit" onclick="submitGrievance()">Submit Grievance</button>
 </div>
 </div>
 
 <!-- VIEW -->
 <div id="view" class="tab">
+<div class="subnav">
+<button onclick="showTab('welcome')">Home</button>
+<button onclick="showTab('form')">Submit</button>
+<button onclick="showTab('view')">Grievances</button>
+</div>
+
 <div class="card">
 <h2>Approved Grievances</h2>
 <div class="container" id="list"></div>
