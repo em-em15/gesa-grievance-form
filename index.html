@@ -1,6 +1,6 @@
 <!--
-GESA Grievance Form Website (Enhanced Large UI + Geodetic Engineering Theme)
-Fully responsive, larger interface, improved visual hierarchy
+GESA Grievance Form Website (Enhanced UI + Admin System + Geodetic Theme)
+No coordinates. Timestamp-based grievance system with approval workflow.
 -->
 
 <!DOCTYPE html>
@@ -19,16 +19,12 @@ Fully responsive, larger interface, improved visual hierarchy
 
     --font-base:18px;
     --header-size:28px;
-    --button-size:18px;
-    --card-padding:22px;
 }
 
 @media (min-width:1024px){
     :root{
         --font-base:20px;
         --header-size:34px;
-        --button-size:20px;
-        --card-padding:26px;
     }
 }
 
@@ -36,15 +32,10 @@ Fully responsive, larger interface, improved visual hierarchy
     :root{
         --font-base:16px;
         --header-size:22px;
-        --button-size:16px;
-        --card-padding:18px;
     }
 }
 
-*{
-    box-sizing:border-box;
-    font-family:Arial;
-}
+*{box-sizing:border-box;font-family:Arial;}
 
 body{
     margin:0;
@@ -56,7 +47,6 @@ body{
         linear-gradient(135deg,var(--primary),var(--dark));
 }
 
-/* GRID + GEODETIC FEEL */
 body::before{
     content:"";
     position:fixed;
@@ -71,10 +61,9 @@ body::before{
 
 header{
     text-align:center;
-    padding:28px;
+    padding:30px;
     font-size:var(--header-size);
     font-weight:bold;
-    letter-spacing:1px;
     background:rgba(0,0,0,0.5);
     backdrop-filter:blur(10px);
 }
@@ -82,128 +71,77 @@ header{
 nav{
     display:flex;
     justify-content:center;
-    gap:14px;
+    gap:12px;
     flex-wrap:wrap;
-    padding:14px;
+    padding:12px;
 }
 
 nav button{
-    padding:14px 22px;
-    font-size:var(--button-size);
+    padding:14px 20px;
     border:none;
-    border-radius:14px;
+    border-radius:12px;
     background:rgba(255,255,255,0.08);
     color:white;
     cursor:pointer;
-    transition:0.2s;
+    font-size:16px;
 }
 
-nav button:hover{
-    background:var(--accent);
-    color:black;
-}
+nav button:hover{background:var(--accent);color:black;}
 
-.tab{
-    display:none;
-    padding:24px;
-}
-
+.tab{display:none;padding:20px;}
 .active{display:block;}
 
 .card{
     background:var(--glass);
-    padding:var(--card-padding);
-    border-radius:16px;
-    margin:16px 0;
+    padding:20px;
+    border-radius:14px;
+    margin:14px 0;
     backdrop-filter:blur(12px);
 }
 
-h2{
-    font-size:1.6em;
-    margin-bottom:10px;
-}
-
-p{
-    line-height:1.6;
-}
-
-/* LARGE ACTION BUTTONS */
-.action-grid{
-    display:flex;
-    gap:16px;
-    flex-wrap:wrap;
-    margin-top:18px;
-}
-
-.action-btn{
-    flex:1;
-    min-width:200px;
-    padding:16px;
-    font-size:18px;
-    border:none;
-    border-radius:14px;
-    background:var(--accent);
-    color:black;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-label{
-    font-size:0.95em;
-    opacity:0.9;
-}
+h2{margin-bottom:10px;}
 
 input,select,textarea{
     width:100%;
-    padding:14px;
-    margin-top:8px;
-    margin-bottom:14px;
+    padding:12px;
+    margin:10px 0;
     border:none;
     border-radius:10px;
-    font-size:1em;
 }
 
-textarea{min-height:150px;}
+textarea{min-height:140px;}
 
 button.submit{
     width:100%;
-    padding:16px;
+    padding:14px;
     background:var(--accent);
     border:none;
     border-radius:12px;
-    font-size:18px;
     font-weight:bold;
     cursor:pointer;
+    font-size:16px;
 }
 
 /* FLOATING GRIEVANCES */
 .container{
     display:flex;
     flex-wrap:wrap;
-    gap:18px;
-    justify-content:center;
+    gap:16px;
 }
 
 .bubble{
     background:white;
     color:black;
-    padding:16px;
-    border-radius:18px;
-    width:280px;
+    padding:14px;
+    border-radius:16px;
+    width:260px;
     box-shadow:0 10px 20px rgba(0,0,0,0.3);
-    animation:float 6s ease-in-out infinite;
-}
-
-@keyframes float{
-    0%{transform:translateY(0px);}
-    50%{transform:translateY(-10px);}
-    100%{transform:translateY(0px);}
 }
 
 .timestamp{
     font-size:0.8em;
     opacity:0.7;
-    margin-top:8px;
+    margin-top:6px;
 }
 
 /* ADMIN BUTTON */
@@ -217,16 +155,45 @@ button.submit{
     background:var(--accent);
     font-weight:bold;
     cursor:pointer;
-    font-size:16px;
 }
 
+/* MODAL */
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.75);
+    display:none;
+    justify-content:center;
+    align-items:center;
+}
+
+.modal-content{
+    background:#0b3d2e;
+    padding:20px;
+    border-radius:14px;
+    width:90%;
+    max-width:520px;
+    max-height:80vh;
+    overflow:auto;
+}
+
+.small-btn{
+    padding:6px 10px;
+    margin:4px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.approve{background:#00c896;color:black;}
+.reject{background:#ff4d4d;color:white;}
 </style>
 </head>
 
 <body>
 
 <header>
-GESA Grievance System | Geodetic Engineering Interface
+GESA Grievance System | Geodetic Engineering Platform
 </header>
 
 <nav>
@@ -238,18 +205,10 @@ GESA Grievance System | Geodetic Engineering Interface
 <!-- WELCOME -->
 <div id="welcome" class="tab active">
 <div class="card">
-<h2>Welcome to the GESA Grievance System</h2>
+<h2>System Purpose</h2>
 <p>
-This platform ensures that all student grievances are properly received, recorded, and acknowledged.
-Every concern submitted through this system is given equal importance, ensuring that no issue is ignored or overlooked.
-Through structured documentation and organized review, this system enables the Geodetic Engineering Students’ Association to take appropriate and timely actions based on verified student concerns.
+The sole purpose of the GESA Grievance Form is to ensure that all student concerns, complaints, and grievances are properly documented, acknowledged, and given due attention. Every submission is treated with importance and respect, ensuring that no concern is ignored or left unheard. Through this system, all grievances are reviewed and acted upon accordingly to promote accountability, transparency, and continuous improvement within the Geodetic Engineering community.
 </p>
-
-<div class="action-grid">
-<button class="action-btn" onclick="showTab('form')">Submit Grievance</button>
-<button class="action-btn" onclick="showTab('view')">View Grievances</button>
-</div>
-
 </div>
 </div>
 
@@ -258,10 +217,8 @@ Through structured documentation and organized review, this system enables the G
 <div class="card">
 <h2>Formal Grievance Submission</h2>
 
-<label>Full Name (Optional)</label>
-<input id="name" placeholder="Enter your full name">
+<input id="name" placeholder="Full Name (Optional)">
 
-<label>Category</label>
 <select id="category">
 <option>Academic Concern</option>
 <option>Facilities Issue</option>
@@ -270,8 +227,7 @@ Through structured documentation and organized review, this system enables the G
 <option>Other</option>
 </select>
 
-<label>Detailed Description</label>
-<textarea id="text" placeholder="Provide complete details of your concern..."></textarea>
+<textarea id="text" placeholder="Describe your grievance in detail..."></textarea>
 
 <button class="submit" onclick="submitGrievance()">Submit Grievance</button>
 </div>
@@ -280,8 +236,20 @@ Through structured documentation and organized review, this system enables the G
 <!-- VIEW -->
 <div id="view" class="tab">
 <div class="card">
-<h2>Grievance Records</h2>
+<h2>Approved Grievances</h2>
 <div class="container" id="list"></div>
+</div>
+</div>
+
+<!-- ADMIN -->
+<button class="admin-btn" onclick="openAdmin()">Admin</button>
+
+<div class="modal" id="adminModal">
+<div class="modal-content">
+<h3>Admin Panel</h3>
+<div id="pending"></div>
+<br>
+<button onclick="closeAdmin()">Close</button>
 </div>
 </div>
 
@@ -299,16 +267,15 @@ function submitGrievance(){
         time:new Date().toLocaleString()
     };
 
-    let approved=JSON.parse(localStorage.getItem('approved'))||[];
-    approved.push(data);
-    localStorage.setItem('approved',JSON.stringify(approved));
+    let pending=JSON.parse(localStorage.getItem('pending'))||[];
+    pending.push(data);
+    localStorage.setItem('pending',JSON.stringify(pending));
 
-    alert("Grievance successfully recorded.");
+    alert("Submitted for admin review");
     document.getElementById('text').value="";
-    loadGrievances();
 }
 
-function loadGrievances(){
+function loadApproved(){
     let data=JSON.parse(localStorage.getItem('approved'))||[];
     let box=document.getElementById('list');
     box.innerHTML="";
@@ -326,7 +293,62 @@ function loadGrievances(){
     });
 }
 
-window.onload=loadGrievances;
+function openAdmin(){
+    let pass=prompt("Enter Admin Password:");
+    if(pass!="GESA-USLT"){
+        alert("Access Denied");
+        return;
+    }
+    document.getElementById('adminModal').style.display="flex";
+    loadPending();
+}
+
+function closeAdmin(){
+    document.getElementById('adminModal').style.display="none";
+}
+
+function loadPending(){
+    let p=JSON.parse(localStorage.getItem('pending'))||[];
+    let box=document.getElementById('pending');
+    box.innerHTML="";
+
+    p.forEach((x,i)=>{
+        let div=document.createElement('div');
+        div.className='bubble';
+        div.innerHTML=`
+        <b>${x.name}</b><br>
+        <i>${x.category}</i><br>
+        ${x.text}<br>
+        <small>${x.time}</small><br><br>
+        <button class="small-btn approve" onclick="approve(${i})">Approve</button>
+        <button class="small-btn reject" onclick="reject(${i})">Reject</button>
+        `;
+        box.appendChild(div);
+    });
+}
+
+function approve(i){
+    let p=JSON.parse(localStorage.getItem('pending'))||[];
+    let a=JSON.parse(localStorage.getItem('approved'))||[];
+
+    a.push(p[i]);
+    p.splice(i,1);
+
+    localStorage.setItem('approved',JSON.stringify(a));
+    localStorage.setItem('pending',JSON.stringify(p));
+
+    loadPending();
+    loadApproved();
+}
+
+function reject(i){
+    let p=JSON.parse(localStorage.getItem('pending'))||[];
+    p.splice(i,1);
+    localStorage.setItem('pending',JSON.stringify(p));
+    loadPending();
+}
+
+window.onload=loadApproved;
 </script>
 
 </body>
