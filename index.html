@@ -1,6 +1,6 @@
 <!--
-GESA Grievance Form Website (Enhanced Large UI + Persistent Navigation + Admin System)
-Geodetic Engineering Themed | No coordinates | Timestamp-based system
+GESA Grievance Form Website (Large UI + Courier New Theme + Clean Navigation)
+No coordinates | Timestamp-based grievance system with admin approval
 -->
 
 <!DOCTYPE html>
@@ -19,16 +19,12 @@ Geodetic Engineering Themed | No coordinates | Timestamp-based system
 
     --font-base:20px;
     --header-size:38px;
-    --button-size:20px;
-    --card-padding:26px;
 }
 
 @media (min-width:1024px){
     :root{
         --font-base:22px;
         --header-size:44px;
-        --button-size:22px;
-        --card-padding:30px;
     }
 }
 
@@ -36,14 +32,12 @@ Geodetic Engineering Themed | No coordinates | Timestamp-based system
     :root{
         --font-base:16px;
         --header-size:26px;
-        --button-size:16px;
-        --card-padding:18px;
     }
 }
 
 *{
     box-sizing:border-box;
-    font-family:Arial;
+    font-family:"Courier New", Courier, monospace;
 }
 
 body{
@@ -56,7 +50,6 @@ body{
         linear-gradient(135deg,var(--primary),var(--dark));
 }
 
-/* GRID GEODETIC STYLE */
 body::before{
     content:"";
     position:fixed;
@@ -78,7 +71,6 @@ header{
     backdrop-filter:blur(10px);
 }
 
-/* GLOBAL NAV */
 .navbar{
     display:flex;
     justify-content:center;
@@ -89,39 +81,15 @@ header{
 
 .navbar button{
     padding:14px 22px;
-    font-size:var(--button-size);
+    font-size:18px;
     border:none;
     border-radius:14px;
     background:rgba(255,255,255,0.08);
     color:white;
     cursor:pointer;
-    transition:0.2s;
 }
 
 .navbar button:hover{
-    background:var(--accent);
-    color:black;
-}
-
-/* INSIDE NAV (REPEATED IN EACH TAB) */
-.subnav{
-    display:flex;
-    justify-content:center;
-    gap:10px;
-    flex-wrap:wrap;
-    margin:10px 0 20px;
-}
-
-.subnav button{
-    padding:10px 16px;
-    border:none;
-    border-radius:12px;
-    background:rgba(255,255,255,0.07);
-    color:white;
-    cursor:pointer;
-}
-
-.subnav button:hover{
     background:var(--accent);
     color:black;
 }
@@ -135,7 +103,7 @@ header{
 
 .card{
     background:var(--glass);
-    padding:var(--card-padding);
+    padding:26px;
     border-radius:18px;
     margin:16px 0;
     backdrop-filter:blur(12px);
@@ -148,13 +116,34 @@ h2{
 
 p{line-height:1.7;}
 
+/* LARGE ACTION BUTTONS (WELCOME ONLY) */
+.action-grid{
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+    margin-top:20px;
+}
+
+.action-btn{
+    flex:1;
+    min-width:220px;
+    padding:18px;
+    font-size:18px;
+    border:none;
+    border-radius:14px;
+    background:var(--accent);
+    color:black;
+    font-weight:bold;
+    cursor:pointer;
+}
+
 input,select,textarea{
     width:100%;
     padding:14px;
     margin:10px 0;
     border:none;
     border-radius:12px;
-    font-size:1em;
+    font-family:"Courier New", Courier, monospace;
 }
 
 textarea{min-height:160px;}
@@ -170,7 +159,6 @@ button.submit{
     cursor:pointer;
 }
 
-/* GRIEVANCES */
 .container{
     display:flex;
     flex-wrap:wrap;
@@ -192,7 +180,6 @@ button.submit{
     margin-top:6px;
 }
 
-/* ADMIN */
 .admin-btn{
     position:fixed;
     bottom:22px;
@@ -244,7 +231,6 @@ button.submit{
 GESA Grievance System | Geodetic Engineering Platform
 </header>
 
-<!-- MAIN NAV (AVAILABLE ALWAYS) -->
 <div class="navbar">
 <button onclick="showTab('welcome')">Home</button>
 <button onclick="showTab('form')">Submit</button>
@@ -253,31 +239,27 @@ GESA Grievance System | Geodetic Engineering Platform
 
 <!-- WELCOME -->
 <div id="welcome" class="tab active">
-<div class="subnav">
-<button onclick="showTab('welcome')">Home</button>
-<button onclick="showTab('form')">Submit</button>
-<button onclick="showTab('view')">Grievances</button>
-</div>
-
 <div class="card">
 <h2>System Purpose</h2>
 <p>
 The sole purpose of the GESA Grievance Form is to ensure that all student concerns, complaints, and grievances are properly documented, acknowledged, and given due attention. Every submission is treated with importance and respect, ensuring that no concern is ignored or left unheard. Through this system, all grievances are reviewed and acted upon accordingly to promote accountability, transparency, and continuous improvement within the Geodetic Engineering community.
 </p>
+
+<div class="action-grid">
+<button class="action-btn" onclick="showTab('form')">Submit Grievance</button>
+<button class="action-btn" onclick="showTab('view')">View Grievances</button>
+</div>
+
 </div>
 </div>
 
 <!-- FORM -->
 <div id="form" class="tab">
-<div class="subnav">
-<button onclick="showTab('welcome')">Home</button>
-<button onclick="showTab('form')">Submit</button>
-<button onclick="showTab('view')">Grievances</button>
-</div>
-
 <div class="card">
 <h2>Formal Grievance Submission</h2>
+
 <input id="name" placeholder="Full Name (Optional)">
+
 <select id="category">
 <option>Academic Concern</option>
 <option>Facilities Issue</option>
@@ -285,19 +267,15 @@ The sole purpose of the GESA Grievance Form is to ensure that all student concer
 <option>Administrative Issue</option>
 <option>Other</option>
 </select>
+
 <textarea id="text" placeholder="Describe your grievance in detail..."></textarea>
+
 <button class="submit" onclick="submitGrievance()">Submit Grievance</button>
 </div>
 </div>
 
 <!-- VIEW -->
 <div id="view" class="tab">
-<div class="subnav">
-<button onclick="showTab('welcome')">Home</button>
-<button onclick="showTab('form')">Submit</button>
-<button onclick="showTab('view')">Grievances</button>
-</div>
-
 <div class="card">
 <h2>Approved Grievances</h2>
 <div class="container" id="list"></div>
