@@ -1,0 +1,201 @@
+<!--
+GESA Grievance Form Website
+Single-file demo (frontend + simple admin using localStorage)
+You can later connect this to a backend (Firebase, Node.js, etc.)
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GESA Grievance Form</title>
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #0b3d2e, #1f7a63);
+    color: white;
+}
+
+header {
+    text-align: center;
+    padding: 15px;
+    background: #06291f;
+    font-size: 20px;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    background: #094d3b;
+}
+
+nav button {
+    padding: 12px 20px;
+    border: none;
+    background: none;
+    color: white;
+    cursor: pointer;
+}
+
+nav button:hover {
+    background: #0c6b52;
+}
+
+.tab {
+    display: none;
+    padding: 20px;
+}
+
+.active {
+    display: block;
+}
+
+.card {
+    background: rgba(255,255,255,0.1);
+    padding: 15px;
+    border-radius: 10px;
+    margin: 10px 0;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+button.submit {
+    margin-top: 10px;
+    background: #00c896;
+    color: black;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.bubble {
+    background: #ffffff;
+    color: black;
+    padding: 10px;
+    border-radius: 15px;
+    margin: 10px;
+}
+
+.admin {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background: black;
+    padding: 10px;
+    border-radius: 10px;
+}
+</style>
+</head>
+<body>
+
+<header>GESA Grievance Form</header>
+
+<nav>
+    <button onclick="openTab('welcome')">Welcome</button>
+    <button onclick="openTab('form')">Submit Grievance</button>
+    <button onclick="openTab('view')">View Grievances</button>
+</nav>
+
+<div id="welcome" class="tab active">
+    <h2>Welcome</h2>
+    <p>This platform allows Geodetic Engineering students to raise concerns, feedback, and suggestions to the GESA - USLT Chapter.</p>
+    <button onclick="openTab('form')">Submit Now</button>
+    <button onclick="openTab('view')">View Posts</button>
+</div>
+
+<div id="form" class="tab">
+    <h2>Submit Grievance</h2>
+    <input id="name" placeholder="Your Name (Optional)">
+    <textarea id="grievance" placeholder="Enter your grievance..."></textarea>
+    <button class="submit" onclick="submitGrievance()">Submit</button>
+</div>
+
+<div id="view" class="tab">
+    <h2>Posted Grievances</h2>
+    <div id="posts"></div>
+</div>
+
+<div class="admin">
+    <button onclick="openAdmin()">Admin</button>
+</div>
+
+<script>
+function openTab(tabName) {
+    document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+    document.getElementById(tabName).classList.add('active');
+}
+
+function submitGrievance() {
+    let name = document.getElementById('name').value || "Anonymous";
+    let text = document.getElementById('grievance').value;
+
+    if (!text) return alert("Please enter a grievance");
+
+    let grievances = JSON.parse(localStorage.getItem('pending')) || [];
+
+    grievances.push({
+        name: name,
+        text: text,
+        time: new Date().toLocaleString()
+    });
+
+    localStorage.setItem('pending', JSON.stringify(grievances));
+
+    alert("Submitted for approval");
+    document.getElementById('grievance').value = "";
+}
+
+function loadPosts() {
+    let posts = JSON.parse(localStorage.getItem('approved')) || [];
+    let container = document.getElementById('posts');
+    container.innerHTML = "";
+
+    posts.forEach(p => {
+        let div = document.createElement('div');
+        div.className = 'bubble';
+        div.innerHTML = `<b>${p.name}</b><br>${p.text}<br><small>${p.time}</small>`;
+        container.appendChild(div);
+    });
+}
+
+function openAdmin() {
+    let pass = prompt("Enter admin password:");
+    if (pass !== "admin123") return;
+
+    let pending = JSON.parse(localStorage.getItem('pending')) || [];
+
+    let action = "";
+
+    pending.forEach((p, index) => {
+        action += `${index}: ${p.text}\n`;
+    });
+
+    let choice = prompt("Pending:\n" + action + "\nEnter index to approve:");
+
+    if (choice !== null && pending[choice]) {
+        let approved = JSON.parse(localStorage.getItem('approved')) || [];
+        approved.push(pending[choice]);
+
+        pending.splice(choice, 1);
+
+        localStorage.setItem('approved', JSON.stringify(approved));
+        localStorage.setItem('pending', JSON.stringify(pending));
+
+        alert("Approved!");
+        loadPosts();
+    }
+}
+
+window.onload = loadPosts;
+</script>
+
+</body>
+</html>
