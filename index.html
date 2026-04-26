@@ -1,6 +1,6 @@
 <!--
-GESA Grievance Form Website (Large UI + Courier New Theme + Clean Navigation)
-No coordinates | Timestamp-based grievance system with admin approval
+GESA Grievance Form Website (Large UI + Clean Century Gothic Theme + Admin System)
+Geodetic Engineering Styled Interface | No coordinates | Timestamp-based system
 -->
 
 <!DOCTYPE html>
@@ -37,7 +37,7 @@ No coordinates | Timestamp-based grievance system with admin approval
 
 *{
     box-sizing:border-box;
-    font-family:"Courier New", Courier, monospace;
+    font-family:"Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 }
 
 body{
@@ -87,6 +87,7 @@ header{
     background:rgba(255,255,255,0.08);
     color:white;
     cursor:pointer;
+    font-weight:bold;
 }
 
 .navbar button:hover{
@@ -116,7 +117,6 @@ h2{
 
 p{line-height:1.7;}
 
-/* LARGE ACTION BUTTONS (WELCOME ONLY) */
 .action-grid{
     display:flex;
     gap:16px;
@@ -143,7 +143,7 @@ input,select,textarea{
     margin:10px 0;
     border:none;
     border-radius:12px;
-    font-family:"Courier New", Courier, monospace;
+    font-family:"Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 }
 
 textarea{min-height:160px;}
@@ -217,6 +217,7 @@ button.submit{
     border:none;
     border-radius:10px;
     cursor:pointer;
+    font-weight:bold;
 }
 
 .approve{background:#00c896;color:black;}
@@ -237,7 +238,6 @@ GESA Grievance System | Geodetic Engineering Platform
 <button onclick="showTab('view')">Grievances</button>
 </div>
 
-<!-- WELCOME -->
 <div id="welcome" class="tab active">
 <div class="card">
 <h2>System Purpose</h2>
@@ -249,11 +249,9 @@ The sole purpose of the GESA Grievance Form is to ensure that all student concer
 <button class="action-btn" onclick="showTab('form')">Submit Grievance</button>
 <button class="action-btn" onclick="showTab('view')">View Grievances</button>
 </div>
-
 </div>
 </div>
 
-<!-- FORM -->
 <div id="form" class="tab">
 <div class="card">
 <h2>Formal Grievance Submission</h2>
@@ -274,7 +272,6 @@ The sole purpose of the GESA Grievance Form is to ensure that all student concer
 </div>
 </div>
 
-<!-- VIEW -->
 <div id="view" class="tab">
 <div class="card">
 <h2>Approved Grievances</h2>
@@ -282,7 +279,6 @@ The sole purpose of the GESA Grievance Form is to ensure that all student concer
 </div>
 </div>
 
-<!-- ADMIN -->
 <button class="admin-btn" onclick="openAdmin()">Admin</button>
 
 <div class="modal" id="adminModal">
